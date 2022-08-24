@@ -1,9 +1,8 @@
-import mongoose from 'mongoose';
+import mongoose, { Mongoose } from 'mongoose';
 // import validator from 'validator';
 
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  username: { type: String, required: true },
   email: {
     type: String,
     required: true,
@@ -20,6 +19,11 @@ const userSchema = new mongoose.Schema({
   },
   password: { type: String, required: true },
   userType: { type: String, required: true, default: 'user' },
+  /*machines: {
+      type: [mongoose.ObjectId],
+      ref: 'machine',
+      required: false,
+  },*/
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
@@ -27,3 +31,9 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 export default User;
+
+// module.exports = {
+//   Model: User,
+//   // fields,
+//   // sanitizers,
+// };

@@ -18,6 +18,14 @@ const app = express();
 
 app.use(express.json()); // for parsing application/json
 
+import usersRouter from './api/v1/users/routes';
+//import maintenancesRouter from '.api/v1/maintenances/routes';
+import machinesRouter from './api/v1/machines/routes';
+
+app.use('/user', usersRouter);
+//app.use('/maintenance', maintenancesRouter);
+app.use('/machine', machinesRouter);
+
 const PORT = process.env.PORT || 3002;
 
 app.listen(PORT, () => {
