@@ -13,17 +13,17 @@ router.use('/maintenances', maintenances);
 const { v4: uuidv4 } = require('uuid');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const swaggerUI = require('swagger-ui-express');
+//const swaggerUI = require('swagger-ui-express');
 
 const logger = require('./config/logger');
 const api = require('./api/v1');
-const docs = require('./api/v1/docs');
+//const docs = require('./api/v1/docs');
 
 // Init app
 const app = express();
 
 // Documentation
-app.use('/docs', swaggerUI.serve, swaggerUI.setup(docs));
+//app.use('/docs', swaggerUI.serve, swaggerUI.setup(docs));
 
 // Setup CORS
 app.use(
@@ -53,11 +53,6 @@ app.use('/api/v1', api);
 app.use('/uploads', express.static('uploads'));
 
 // Routes
-app.get('/', (req, res, next) => {
-  res.json({
-    message: 'Harvestify API',
-  });
-});
 
 // No route found handler
 app.use((req, res, next) => {

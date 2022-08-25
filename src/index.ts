@@ -12,8 +12,6 @@ const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
 db.on('open', () => console.log('Conected to Database'));
 
-//import { createServer } from 'http';
-
 const app = express();
 
 app.use(express.json()); // for parsing application/json
