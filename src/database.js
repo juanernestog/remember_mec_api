@@ -1,4 +1,5 @@
-import mongoose from 'mongoose';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { connect: connect0, connection } = require('mongoose');
 
 import logger from './config/logger';
 
@@ -19,24 +20,24 @@ exports.connect = (
 
   const mongourl = process.env.MONGO_ATLAS || dburl;
 
-  mongoose.connect(mongourl, {
+  connect0(mongourl, {
     ...options,
   });
 
-  mongoose.connection.on('open', () => {
+  connection.on('open', () => {
     logger.info('Database connected');
   });
 
-  mongoose.connection.on('close', () => {
+  connection.on('close', () => {
     logger.info('Database disconnected');
   });
 
-  mongoose.connection.on('error', (err) => {
+  connection.on('error', (err) => {
     logger.error(`Database connection error: ${err}`);
   });
 
   process.on('SIGINT', () => {
-    mongoose.connection.close(() => {
+    connection.close(() => {
       logger.info('Database connection disconnected through app termination');
       process.exit(0);
     });

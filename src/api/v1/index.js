@@ -29,7 +29,7 @@ const app = express();
 app.use(
   cors({
     origin: '*',
-    methods: ['GET', 'PUT', 'POST', 'DELETE'],
+    methods: ['GET', 'PATCH', 'POST', 'DELETE'],
     allowedHeaders: ['Accept', 'Content-Type', 'Authorization'],
   }),
 );

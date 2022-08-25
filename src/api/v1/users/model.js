@@ -1,9 +1,8 @@
-import mongoose, { Mongoose } from 'mongoose';
+import { Model, Schema } from 'mongoose';
 import { hash, compare } from 'bcryptjs';
-import { nextTick } from 'process';
 // import validator from 'validator';
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
   name: { type: String, required: true },
   email: {
     type: String,
@@ -30,7 +29,7 @@ const userSchema = new mongoose.Schema({
   updatedAt: { type: Date, default: Date.now },
 });
 
-const User = mongoose.model('User', userSchema);
+const User = Model('User', userSchema);
 
 // use doc on controler to hace the password hidden
 userSchema.methods.toJSON = function () {
