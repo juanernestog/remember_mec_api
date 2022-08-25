@@ -1,4 +1,6 @@
 import mongoose, { Mongoose } from 'mongoose';
+import { hash, compare } from 'bcryptjs';
+import { nextTick } from 'process';
 // import validator from 'validator';
 
 const userSchema = new mongoose.Schema({
@@ -29,6 +31,24 @@ const userSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model('User', userSchema);
+
+// use doc on controler to hace the password hidden
+userSchema.methods.toJSON = function () {
+  const doc = this.toObject();
+  delete doc.password;
+  return doc;
+};
+
+userSchema.pre('save', async function (next) {
+  if (this.isNew() || this.isModified('password')) {
+    this.password = await hash(this.password, 10);
+  }
+  next();
+});
+
+userSchema.verifyPassword = async function (input) {
+  return compare(input, this.password);
+};
 
 export default User;
 

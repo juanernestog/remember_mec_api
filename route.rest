@@ -1,15 +1,33 @@
-GET http://localhost:3000/user
+GET http://localhost:3000/api/v1/user
 
 ###
-POST http://localhost:3000/user/login
+POST http://localhost:3000/api/v1/user/signup
 Content-Type: application/json
 
 {
-  "name": "test one",
-  "email": "juan@test.com",
+  "name": "test 4",
+  "email": "juan8@test.com",
   "password": "testpass"
 }
 
 ###
-GET http://localhost:3000/user/63059f379f3cb187d39627d5
+POST http://localhost:3000/api/v1/user/login
+Content-Type: application/json
 
+{
+  "email": "juan8@test.com",
+  "password": "testpass"
+}
+
+###
+GET http://localhost:3000/api/v1/user/6305a73eee43bdbd6bb42ae8
+###
+DELETE http://localhost:3000/user/6305a736ee43bdbd6bb42ae6
+
+###
+PATCH http://localhost:3000/user/6305a716ee43bdbd6bb42ad8
+Content-Type: application/json
+
+{
+  "name": "test patch"
+}
