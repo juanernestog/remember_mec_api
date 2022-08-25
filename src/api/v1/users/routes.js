@@ -1,6 +1,5 @@
-import { hasSubscribers } from 'diagnostics_channel';
 import express from 'express';
-import { get, request } from 'http';
+//import { get, request } from 'http';
 //import controller from './controller';
 //import { auth, authCheck } from '../auth';
 import User from './model';
@@ -15,7 +14,19 @@ const router = express.Router();
  * /api/users/:id DELETE -> DELETE
  */
 
-router.post('/singup', (req, res) => {});
+router.post('/singup', async (req, res) => {
+  const user = new User({
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password,
+  });
+  try {
+    const newUser = await user.save();
+    res.status(201).json(newUser);
+  } catch (err) {
+    res.status(400);
+  }
+});
 
 router.post('/login', async (req, res) => {
   const user = new User({
