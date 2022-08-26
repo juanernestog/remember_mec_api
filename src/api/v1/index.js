@@ -6,17 +6,13 @@ import machines from './machines/routes';
 import users from './users/routes';
 import maintenances from './maintenances/routes';
 
-router.use('/machines', machines);
-router.use('/users', users);
-router.use('/maintenances', maintenances);
-
 const { v4: uuidv4 } = require('uuid');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 //const swaggerUI = require('swagger-ui-express');
 
-const logger = require('./config/logger');
-const api = require('./api/v1');
+const logger = require('../../config/logger');
+//const api = require('./api/v1');
 //const docs = require('./api/v1/docs');
 
 // Init app
@@ -39,7 +35,7 @@ app.use((req, res, next) => {
   req.id = uuidv4();
   next();
 });
-app.use(logger.requests);
+//app.use(logger.requests);
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -47,10 +43,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Setup router and routes
-app.use('/api', api);
-app.use('/api/v1', api);
+app.use('/api', router);
+app.use('/api/v1', router);
 
-app.use('/uploads', express.static('uploads'));
+router.use('/machines', machines);
+router.use('/users', users);
+router.use('/maintenances', maintenances);
+
+// app.use('/uploads', express.static('uploads'));
 
 // Routes
 
@@ -72,6 +72,7 @@ app.use((err, req, res, next) => {
   // Validation errors
   if (err?.name === 'ValidationError' || err?.name === 'MulterError') {
     statusCode = 400;
+    next();
   }
 
   logger[level](log);

@@ -1,4 +1,4 @@
-import { Model, Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import { hash, compare } from 'bcryptjs';
 // import validator from 'validator';
 
@@ -29,7 +29,7 @@ const userSchema = new Schema({
   updatedAt: { type: Date, default: Date.now },
 });
 
-const User = Model('User', userSchema);
+const User = model('User', userSchema);
 
 // use doc on controler to hace the password hidden
 userSchema.methods.toJSON = function () {
@@ -53,6 +53,6 @@ export default User;
 
 // module.exports = {
 //   Model: User,
-//   // fields,
-//   // sanitizers,
+//   fields,
+//   sanitizers,
 // };

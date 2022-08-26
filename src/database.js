@@ -45,7 +45,7 @@ exports.connect = (
 };
 
 exports.disconnect = () => {
-  mongoose.connection.close(() => {
+  connection.close(() => {
     logger.info('Database disconnected');
   });
 };
