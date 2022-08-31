@@ -1,11 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import express from 'express';
-
-const router = express.Router();
-import machines from './machines/routes';
-import users from './users/routes';
-import maintenances from './maintenances/routes';
-
+const router = require('./routing');
 const { v4: uuidv4 } = require('uuid');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -42,13 +37,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-// Setup router and routes
+// // Setup router and routes
 app.use('/api', router);
 app.use('/api/v1', router);
-
-router.use('/machines', machines);
-router.use('/users', users);
-router.use('/maintenances', maintenances);
 
 // app.use('/uploads', express.static('uploads'));
 
@@ -85,4 +76,4 @@ app.use((err, req, res, next) => {
   });
 });
 
-export default router;
+export default app;

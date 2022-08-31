@@ -69,11 +69,11 @@ router.patch('/:id', getUser, (req, res) => {
   }
 });
 
-router.delete('/:id', getUser, (req, res) => {
+router.delete('/:id', getUser, async (req, res) => {
   const deletedUser = req.user;
   try {
     // eslint-disable-next-line prettier/prettier
-    deletedUser.delete();
+    await res.user.delete();
     res.status(200).json(deletedUser);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -107,4 +107,4 @@ async function getUser(req, res, next) {
   next();
 }
 
-export default router;
+module.exports = router;
